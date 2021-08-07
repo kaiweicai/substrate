@@ -224,24 +224,27 @@ where
 
 		// Analyze the data that was written to contract memory by the instrumentation.
 		if let Some((cov_info, code_hash, input)) = cov_info {
-			let cov_range = cov_info.range();
-			let coverage = pwasm_utils::coverage::Coverage::new(
-				cov_info,
-				runtime.read_sandbox_memory(cov_range.start, cov_range.len() as u32)?,
-			)?;
+			let cov_range = cov_info.bitmap_location();
+			let bitmap = runtime.read_sandbox_memory(cov_range.start, cov_range.len() as u32)?;
+			let coverage = pwasm_utils::coverage::Coverage::new(cov_info, bitmap)?;
 			let stats = coverage.create_statistic();
-			let num_elements = stats.num_locals + stats.num_instructions;
-			let used_elements = stats.used_locals + stats.used_instructions;
 			log::info!(
 				target: "runtime::contracts",
-				"{:?}/{:?}: {}/{} functions, {}/{} elements ({}%)",
-				code_hash,
+				"{}/{:?}: {}/{} functions, {}/{} locals ({}%), {}/{} basic_blocks ({}%), {}/{} instructions ({}%)",
+				format!("{:?}...", code_hash).split_at(6).0,
 				input,
 				stats.used_functions,
 				stats.num_functions,
-				used_elements,
-				num_elements,
-				used_elements * 100 / num_elements,
+				stats.used_locals,
+				stats.num_locals,
+				(stats.used_locals * 100).checked_div(stats.num_locals).unwrap_or(100),
+				stats.used_basic_blocks,
+				stats.num_basic_blocks,
+				(stats.used_basic_blocks * 100).checked_div(stats.num_basic_blocks).unwrap_or(100),
+				stats.used_instructions,
+				stats.num_instructions,
+				(stats.used_instructions * 100).checked_div(stats.num_instructions).unwrap_or(100),
+
 			);
 		}
 

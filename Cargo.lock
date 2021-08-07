@@ -6464,7 +6464,7 @@ dependencies = [
 [[package]]
 name = "pwasm-utils"
 version = "0.18.1"
-source = "git+https://github.com/paritytech/wasm-utils?branch=at-code-coverage#370dd3e369b17b418008bfc44dcb754fdaa610ca"
+source = "git+https://github.com/paritytech/wasm-utils?branch=at-code-coverage#cba493500af05ccc9e355d71a2c7aded9710b5a4"
 dependencies = [
  "byteorder",
  "log",

@@ -452,7 +452,7 @@ pub fn inject_coverage_instrumentation<T: Config>(
 ) -> Result<(pwasm_utils::coverage::Info, (u32, u32), Vec<u8>), &'static str> {
 	let mut module = elements::deserialize_buffer(&prefab.code)
 		.map_err(|_| "Can't decode wasm code for coverage instrumentation.")?;
-	let info = pwasm_utils::coverage::instrument(&mut module)?;
+	let info = pwasm_utils::coverage::instrument(&mut module, ("seal0", "gas"))?;
 	let limits = get_memory_limits::<T>(&module, None)?;
 	let code = elements::serialize(module)
 		.map_err(|_| "error serializing the coverage instrumented module")?;
