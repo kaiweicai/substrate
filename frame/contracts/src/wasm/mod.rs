@@ -230,21 +230,10 @@ where
 			let stats = coverage.create_statistic();
 			log::info!(
 				target: "runtime::contracts",
-				"{}/{:?}: {}/{} functions, {}/{} locals ({}%), {}/{} basic_blocks ({}%), {}/{} instructions ({}%)",
+				"{}/{:?}: {}",
 				format!("{:?}...", code_hash).split_at(6).0,
 				input,
-				stats.used_functions,
-				stats.num_functions,
-				stats.used_locals,
-				stats.num_locals,
-				(stats.used_locals * 100).checked_div(stats.num_locals).unwrap_or(100),
-				stats.used_basic_blocks,
-				stats.num_basic_blocks,
-				(stats.used_basic_blocks * 100).checked_div(stats.num_basic_blocks).unwrap_or(100),
-				stats.used_instructions,
-				stats.num_instructions,
-				(stats.used_instructions * 100).checked_div(stats.num_instructions).unwrap_or(100),
-
+				stats,
 			);
 		}
 
