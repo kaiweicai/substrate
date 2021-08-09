@@ -14,17 +14,17 @@ readme = "README.md"
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-async-trait = "0.1.42"
+async-trait = "0.1.51"
 codec = { package = "parity-scale-codec", version = "2.0.0", features = ["derive"] }
-futures = { version = "0.3.1", features = ["thread-pool"] }
-log = "0.4.8"
+futures = { version = "0.3.16", features = ["thread-pool"] }
+log = "0.4.14"
 sp-core = { path = "../../core", version = "4.0.0-dev"}
 sp-inherents = { version = "4.0.0-dev", path = "../../inherents" }
 sp-state-machine = { version = "0.10.0-dev", path = "../../state-machine" }
 sp-std = { version = "4.0.0-dev", path = "../../std" }
 sp-version = { version = "4.0.0-dev", path = "../../version" }
 sp-runtime = { version = "4.0.0-dev", path = "../../runtime" }
-thiserror = "1.0.21"
+thiserror = "1.0.26"
 
 [dev-dependencies]
 sp-test-primitives = { version = "2.0.0", path = "../../test-primitives" }
